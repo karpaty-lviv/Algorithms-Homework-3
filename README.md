@@ -51,6 +51,16 @@ mingw32-make clean
 ```
 
 
+#### 5. Testing different input files
+To test different input files, change the filename in the 14th line in the ```main.cpp``` file. For example changing input file to ```input_1.txt```:
+
+```powershell
+std::string filename = "data/input_1.txt";
+```
+
+
+
+
 
 ## Input File Format
 
