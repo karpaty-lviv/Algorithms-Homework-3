@@ -52,7 +52,11 @@ mingw32-make clean
 
 
 
-Input file format:<br>
-first number - number of vertices V<br>
-second number - number of edges E<br>
-next - list of edges
+## Input File Format
+
+The input file (`data/input.txt`) must adhere to the following structure:
+
+1.  **Header:** First row containing two integers separated by space:
+    * `V`: Number of vertices in the graph.
+    * `E`: Number of edges in the graph.
+2.  **Edges:** The following `E` lines each contain two integers `u` and `v`, representing a directed edge from vertex `u` to vertex `v`.
