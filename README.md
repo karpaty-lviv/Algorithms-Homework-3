@@ -18,3 +18,9 @@ c) Find one valid **topological ordering** (topological sort) of this DAG.
 * Partition of vertices into SCCs.
 * The edge list of the condensation DAG.
 * The topological ordering of the constructed DAG.
+
+
+Input file format:
+first number - number of vertices V
+second number - number of edges E
+next - list of edges
