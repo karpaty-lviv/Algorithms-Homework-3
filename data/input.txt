@@ -1,7 +1,3 @@
-#first number - number of vertices V
-#second number - number of edges E
-#next - list of edges
-
 8 11
 1 2
 2 3

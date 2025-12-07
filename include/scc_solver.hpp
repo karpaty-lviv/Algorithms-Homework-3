@@ -16,15 +16,15 @@ private:
 public:
     SCCSolver(const Graph &g);
 
-    // а) Знайти всі сильно зв'язні компоненти
-    // Повертає вектор векторів, де кожен внутрішній вектор - це список вершин однієї компоненти
+    // а) Find all Strigly Connected Components
+    // Return vector of vectors, where each vector represents the verices belonging to one SCC
     std::vector<std::vector<int>> findSCCs();
 
-    // б) Побудувати граф конденсації (повертає новий граф, який є DAG)
-    // Вхід: список компонентів (результат попереднього кроку)
+    // б) Build a condensation graph
+    // returns new DAG graph
     Graph buildCondensationGraph(const std::vector<std::vector<int>> &sccs);
 
-    // в) Топологічне сортування
-    // Приймає граф (DAG) і повертає вектор вершин у топологічному порядку
+    // в) Topological sort
+    // Topological sort of a DAG graph
     static std::vector<int> topologicalSort(const Graph &dag);
 };

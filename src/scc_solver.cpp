@@ -1,6 +1,8 @@
 #include "scc_solver.hpp"
 #include <vector>
 #include <stack>
+#include <algorithm>
+#include <functional>
 
 SCCSolver::SCCSolver(const Graph &g) : graph(g){
     visited.resize(g.V, false);
@@ -50,7 +52,7 @@ std::vector<std::vector<int>> SCCSolver::findSCCs()
 }
 
 Graph SCCSolver::buildCondensationGraph(const std::vector<std::vector<int>> &sccs){
-    int K = sccs.size(); // number of sccs
+    int K = sccs.size(); // number of SCCs
     Graph dag(K);
 
     std::vector<int> component_id(graph.V);
@@ -71,4 +73,28 @@ Graph SCCSolver::buildCondensationGraph(const std::vector<std::vector<int>> &scc
         }
     }
     return dag;
+}
+
+std::vector<int> SCCSolver::topologicalSort(const Graph &dag){
+    std::vector<bool> visited(dag.V, false);
+    std::vector<int> result;
+
+    std::function<void(int)> topoDFS = [&](int u){
+        visited[u] = true;
+        for (int v : dag.adj[u]){
+            if (!visited[v]){
+                topoDFS(v);
+            }
+        }
+        result.push_back(u);
+    };
+
+    for (int i = 0; i < dag.V; i++){
+        if (!visited[i]){
+            topoDFS(i);
+        }
+    }
+
+    std::reverse(result.begin(), result.end());
+    return result;
 }
