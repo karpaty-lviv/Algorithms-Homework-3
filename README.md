@@ -143,5 +143,25 @@ The output confirms the correct execution of the algorithms:
 <img width="528" height="528" alt="graph_condanstion" src="https://github.com/user-attachments/assets/947d2683-8f3f-4333-8e47-cfcc090e9a99" />
 
 
+## Algorithm breakdown
 
 
+## Performance Comparison
+
+To evaluate the efficiency of the algorithm, I conducted a series of benchmarks comparing this C++ implementation against the popular Python library `networkx`. 
+
+A Python script was used to generate random directed graphs of varying sizes and measure the execution time for finding Strongly Connected Components (SCCs).
+
+### Benchmark Results
+
+| Input File | Vertices | My C++ Implementation | Python `networkx` |
+| :--- | :--- | :--- | :--- |
+| `input_benchmark1.txt` | 1,000 | **0.44 ms** | 9.37 ms |
+| `input_benchmark2.txt` | 10,000 | **2.18 ms** | 96.61 ms |
+| `input_benchmark3.txt` | 50,000 | **15.39 ms** | 334.14 ms |
+| `input_benchmark4.txt` | 70,000 | **17.13 ms** | 470.42 ms |
+| `input_benchmark5.txt` | 90,000 | **27.22 ms** | 592.58 ms |
+
+### Conclusion
+
+The results demonstrate that the native C++ implementation is consistently **over 20 times faster** than the Python `networkx` equivalent.
