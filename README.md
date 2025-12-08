@@ -22,7 +22,7 @@ c) Find one valid **topological ordering** (topological sort) of this DAG.
 ## Usage
 
 #### 1. Clone the Repository
-Clone the project repository to your local machine:
+Clone the project repository to your local machine.
 
 #### 2. Build the Project
 If you are on **Windows** (using MinGW), you can use the provided `Makefile` to compile the project. Run the following command in the root directory:
