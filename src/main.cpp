@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <chrono>
 #include <iomanip>
 
 #include "graph.hpp"
@@ -12,19 +13,23 @@ int main()
     {
         // reading the data
         std::string filename = "data/input.txt";
-        std::cout << "Loading graph from file: " << filename << "...\n";
+        std::cout << "Loading graph from file: " << filename << "\n";
 
         Graph g = GraphUtils::readGraphFromFile(filename);
 
-        std::cout << "Graph loaded successfully!\n";
-        std::cout << "Vertices: " << g.V << ", Edges count calculated implicitly.\n";
         std::cout << "--------------------------------------------------\n\n";
 
         // find SCCs
-        std::cout << ">>> Step 1: Finding Strongly Connected Components (SCCs)...\n";
+        std::cout << ">>> Step 1: Finding Strongly Connected Components (SCCs)\n";
 
         SCCSolver solver(g);
+
+        // measure findSCCs 
+        auto start = std::chrono::high_resolution_clock::now();
         std::vector<std::vector<int>> sccs = solver.findSCCs();
+        auto end = std::chrono::high_resolution_clock::now();
+
+        std::chrono::duration<double, std::milli> duration = end - start;
 
         std::cout << "Result: Found " << sccs.size() << " strongly connected components.\n";
 
@@ -39,7 +44,7 @@ int main()
         std::cout << "--------------------------------------------------\n\n";
 
         // build condansation graph
-        std::cout << ">>> Step 2: Building Condensation Graph (DAG)...\n";
+        std::cout << ">>> Step 2: Building Condensation Graph (DAG)\n";
 
         Graph dag = solver.buildCondensationGraph(sccs);
 
@@ -58,7 +63,7 @@ int main()
         std::cout << "--------------------------------------------------\n\n";
 
         // topological sort
-        std::cout << ">>> Step 3: Topological Sort of the Condensation Graph...\n";
+        std::cout << ">>> Step 3: Topological Sort of the Condensation Graph\n";
 
         std::vector<int> sortedOrder = SCCSolver::topologicalSort(dag);
 
@@ -69,6 +74,12 @@ int main()
                 std::cout << " --> ";
             }
         }
+
+        std::cout << "\n\n--------------------------------------------------";
+        std::cout << "\nAlgorithm Performance (SCC Search): ";
+        std::cout << std::fixed << std::setprecision(4) << duration.count() << " ms";
+        std::cout << "\n--------------------------------------------------";
+
         std::cout << "\n\nDone.\n";
     }
     catch (const std::exception &e){
