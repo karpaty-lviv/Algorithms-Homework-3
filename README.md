@@ -114,6 +114,10 @@ Edges between components:
 Result: Valid topological order of components:
   Comp #1 --> Comp #2 --> Comp #3
 
+--------------------------------------------------
+Algorithm Performance (SCC Search): 0.0092 ms
+--------------------------------------------------
+
 Done.
 ```
 
