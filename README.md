@@ -143,7 +143,44 @@ The output confirms the correct execution of the algorithms:
 <img width="528" height="528" alt="graph_condanstion" src="https://github.com/user-attachments/assets/947d2683-8f3f-4333-8e47-cfcc090e9a99" />
 
 
-## Algorithm breakdown
+## Implementation Breakdown
+
+### Algorithm Overview: Kosaraju's Algorithm
+To identify all **Strongly Connected Components (SCCs)**, I utilized **Kosaraju's Algorithm**. This is a classic and efficient two-pass algorithm based on Depth First Search (DFS).
+
+The core idea relies on the fact that if you transpose a graph (reverse the direction of all edges), the strongly connected components remain the same, but the direction of the "super-edges" between components is reversed. By processing nodes in a specific order (determined by the finish times of a DFS on the original graph), we can isolate each SCC efficiently.
+
+### File Structure
+
+The project is organized into four primary modules:
+
+* **`graph_utils.cpp`**: Handles file I/O and parsing. It contains the logic to read the input file, validate the format, ignore comments, and construct a `Graph` object.
+* **`graph.cpp`**: Implements the `Graph` class.
+    * **Properties:** Stores the number of vertices (`V`) and two adjacency lists: `adj` (original graph) and `rev_adj` (transposed graph).
+    * **Key Method:** `addEdge(u, v)` simultaneously adds a directed edge $u \to v$ to the original graph and $v \to u$ to the transposed graph. This optimization prevents the need to reverse the graph later during runtime.
+* **`scc_solver.cpp`**: Contains the core algorithmic logic. It implements the `SCCSolver` class, which uses helper DFS methods (`dfs1` for stack filling and `dfs2` for component gathering) to solve the problem steps.
+* **`main.cpp`**: The entry point. It orchestrates the flow: reading data, solving for SCCs, building the condensation graph, performing topological sorting, and printing the results / performance metrics.
+
+
+### Key Functions & Logic
+
+#### 1. `findSCCs`
+This function identifies the strongly connected components using the two-pass approach:
+1.  **First Pass (DFS):** The algorithm performs a DFS on the **original graph**. When the recursion for a node and all its descendants finishes (post-order), the node is pushed onto a **stack**. This ensures that nodes are ordered by their finish times.
+2.  **Second Pass (Reverse DFS):** The algorithm processes nodes by popping them from the stack. If a node has not been visited in this pass, it initiates a new DFS (using `dfs2`) on the **transposed graph**.
+3.  **Collection:** Because the graph edges are reversed, this second DFS cannot leave the current SCC. All nodes reachable in this pass form exactly one strongly connected component.
+
+#### 2. `buildCondensationGraph`
+This method constructs a new graph (a DAG) where every vertex represents an entire SCC from the original graph.
+* It creates a mapping array `component_id` to track which SCC each original vertex belongs to.
+* It iterates through all edges of the original graph. If an edge connects two vertices that belong to **different** components, a directed edge is added between those component IDs in the new graph.
+* **Result:** The output is a Directed Acyclic Graph (DAG) representing the dependencies between components.
+
+#### 3. `topologicalSort`
+This function determines a linear ordering of the vertices in the Condensation Graph (DAG) such that for every directed edge $u \to v$, vertex $u$ comes before $v$ in the ordering.
+* **Method:** It uses a DFS-based approach.
+* **Logic:** When the DFS visits a node, it recursively visits all unvisited neighbors first. Only after all neighbors are processed is the current node added to a list.
+* **Result:** This produces a list in *reverse topological order* (children appear before parents). Finally, the list is reversed using `std::reverse` to produce the correct topological sort.
 
 
 ## Performance Comparison
