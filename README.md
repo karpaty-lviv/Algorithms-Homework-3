@@ -62,7 +62,7 @@ std::string filename = "data/input_1.txt";
 
 ### For Linux users
 
-On Linux is all the same, but with slitely different commands
+On Linux is all the same, but with slightly different commands
 
 ```powershell
 make
@@ -72,7 +72,7 @@ make clean
 
 ## Input File Format
 
-The input file (`data/input.txt`) must adhere to the following structure:
+The input file (`data/input.txt`) must follow the structure below:
 
 1.  **Header:** First row containing two integers separated by space:
     * `V`: Number of vertices in the graph.
