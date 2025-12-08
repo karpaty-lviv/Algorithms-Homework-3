@@ -43,6 +43,13 @@ Once the compilation is complete, launch the executable:
 .\scc_app.exe
 ```
 
+Another way to do this is by using ```run``` command
+
+```powershell
+mingw32-make run
+```
+
+
 #### 4. Clean the Project
 To remove build artifacts (object files and the executable) and clean up your project directory, run:
 
@@ -58,7 +65,15 @@ To test different input files, change the filename in the 14th line in the ```ma
 std::string filename = "data/input_1.txt";
 ```
 
+### For Linux users
 
+On Linux is all the same, but with slitely different commands
+
+```powershell
+make
+make run
+make clean
+```
 
 ## Input File Format
 
